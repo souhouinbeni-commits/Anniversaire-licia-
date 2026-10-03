@@ -65,11 +65,12 @@ Je t'aime. ❤️</p>
 </section>
 
 <section>
-  <h2>Une phrase que je n'ai pas oubliée 🥹</h2>
+  <h2>Un souvenir qui a 3 ans 🥹</h2>
   <div class="memory">
-    <p class="letter">« Je suis tellement émue de te voir grandir et tout, c'est génial d'être à tes côtés. »</p>
+    <p class="letter">La deuxième photo, avec les messages en bleu, c'est un message que je t'avais écrit il y a maintenant 3 ans, quand tu avais perdu ton compte Facebook pour la première fois.</p>
+    <p class="letter">À cette époque, tu me manquais énormément. Pour moi, c'était comme être loin de ma moitié, et même avec le temps, ce souvenir est resté important.</p>
+    <p class="small">Trois ans plus tard, je trouve ça beau de pouvoir revoir ces mots et de me dire qu'ils font encore partie de notre histoire. ❤️</p>
   </div>
-  <p class="small">Et moi, je suis reconnaissant de pouvoir grandir avec toi, même avec la distance.</p>
 </section>
 
 <section>
@@ -79,10 +80,26 @@ Ce sont aussi nos messages, nos petites habitudes, nos taquineries, nos « ma vi
 </section>
 
 <section>
-  <h2>Ta petite wishlist 🎁</h2>
-  <div class="gift"><b>📱 Un iPhone 14 blanc</b><br>256 Go · version américaine · waterproof · payé en une fois · dans son carton avec ses accessoires + un power bank</div>
-  <div class="gift"><b>🥣 Un carton de Cerelac</b></div>
-  <div class="gift"><b>🫶 Une journée entière avec moi</b><br><span class="small">Et celle-là, j'espère pouvoir vraiment te l'offrir.</span></div>
+  <h2>À toi de choisir 🎁</h2>
+  <p class="promise">Cette fois, c'est toi qui choisis 😌❤️</p>
+  <p class="small">Tu peux choisir <b>jusqu'à 2 cadeaux maximum</b>. Pas besoin de tout prendre : je veux surtout que tu choisisses ce qui te ferait vraiment plaisir.</p>
+
+  <div class="gift">
+    <label><input type="checkbox" class="giftChoice" value="iPhone 14 blanc" onchange="limitGifts(this)"> <b>📱 Un iPhone 14 blanc</b><br>
+    256 Go · version américaine · waterproof · payé en une fois · dans son carton avec ses accessoires + un power bank</label>
+  </div>
+
+  <div class="gift">
+    <label><input type="checkbox" class="giftChoice" value="Carton de Cerelac" onchange="limitGifts(this)"> <b>🥣 Un carton de Cerelac</b></label>
+  </div>
+
+  <div class="gift">
+    <label><input type="checkbox" class="giftChoice" value="Une journée entière avec moi" onchange="limitGifts(this)"> <b>🫶 Une journée entière avec moi</b><br>
+    <span class="small">Et celle-là, j'espère pouvoir vraiment te l'offrir.</span></label>
+  </div>
+
+  <p id="giftMessage" class="small"></p>
+  <button type="button" onclick="showChoices()" style="margin-top:10px">Valider mes choix 💙</button>
 </section>
 
 <section>
@@ -119,6 +136,29 @@ function openSite(){
   document.getElementById('cover').style.display='none';
   document.getElementById('site').style.display='block';
   window.scrollTo(0,0);
+}
+
+function limitGifts(box){
+  const choices=[...document.querySelectorAll('.giftChoice:checked')];
+  if(choices.length>2){
+    box.checked=false;
+    document.getElementById('giftMessage').textContent='Tu peux choisir seulement 2 cadeaux maximum ❤️';
+  } else {
+    document.getElementById('giftMessage').textContent='';
+  }
+}
+function showChoices(){
+  const choices=[...document.querySelectorAll('.giftChoice:checked')].map(x=>x.value);
+  const msg=document.getElementById('giftMessage');
+  if(choices.length===0){
+    msg.textContent='Choisis au moins un cadeau si tu en as envie 😌';
+  } else {
+    msg.textContent='Mes choix : '+choices.join(' + ')+' ❤️';
+    const phone='22997157264';
+    const text='🎁 Licia vient de choisir ses cadeaux pour son anniversaire ❤️\n\nSes choix :\n• '+choices.join('\n• ')+'\n\nJe t’aime, ma vie ❤️';
+    const url='https://wa.me/'+phone+'?text='+encodeURIComponent(text);
+    setTimeout(()=>window.location.href=url,350);
+  }
 }
 </script>
 </body>
